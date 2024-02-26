@@ -1,17 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { PlayerRotas } from './player.routes';
+
+import { LeftPanelComponent } from '../../components/left-panel/left-panel.component';
 
 @Component({
     selector: 'app-player',
     standalone: true,
-    
+
     imports: [
-        CommonModule,
+        CommonModule, LeftPanelComponent
     ],
-    template: `<p>player works!</p>`,
-    styleUrl: './player.component.css',
-   
+    template: `
+    
+    <app-left-panel>
+    
+    
+    `,
+    styleUrl: './player.component.scss',
+
 })
 export class PlayerComponent { }

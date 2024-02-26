@@ -1,0 +1,6 @@
+<button type="button"
+(click)="clickButton()"
+[class.selected]="selected">
+  <ng-content></ng-content>
+  <span>{{ text() }}</span>
+</button>

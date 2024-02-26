@@ -10,7 +10,7 @@ export const routes: Routes = [
     {
         path: 'player',
         loadChildren: () => import('./pages/player/player.module').then(x => x.PlayerModule),
-        canActivate: [authenticatedGuard]
+        canMatch: [authenticatedGuard]
 
     },
     {

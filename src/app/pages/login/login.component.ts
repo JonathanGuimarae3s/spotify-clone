@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { SpotifyService } from '../../model/service/spotifyServices/spotify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,10 @@ import { SpotifyService } from '../../model/service/spotifyServices/spotify.serv
 export class LoginComponent {
 
 
-  constructor(private SpotifyService: SpotifyService) {
+  constructor(
+
+    private SpotifyService: SpotifyService,
+    private router: Router) {
     this.verifyTokenUrlCallback();
   }
   verifyTokenUrlCallback() {
@@ -29,6 +33,8 @@ export class LoginComponent {
     if (!!token) {
       console.log(token)
       this.SpotifyService.setAcessToken(token);
+      this.router.navigate(['/player']);
+
     }
   }
 

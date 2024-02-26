@@ -1,5 +1,5 @@
 export interface IUsers {
     id: string
-    name: string
-    image: string 
+    name: string | undefined
+    image: string | undefined
 }

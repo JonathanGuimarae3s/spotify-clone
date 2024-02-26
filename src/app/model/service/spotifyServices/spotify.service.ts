@@ -4,14 +4,16 @@ import { SpotifyConfiguration } from '../../../../environments/environment.devel
 import Spotify from 'spotify-web-api-js';
 import { IUsers } from '../../interfaces/IUsers';
 import { identifierName } from '@angular/compiler';
-import { SpotifyUserToUser } from '../../../Common/spotifyHelper';
+import { SpotifyPlaylistToPlaylist, SpotifyUserToUser } from '../../../Common/spotifyHelper';
+import { IPlaylist } from '../../interfaces/IPlaylist';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
   private spotifyApi: Spotify.SpotifyWebApiJs | null = null;
-  user!: IUsers;
+  public user: IUsers | undefined;
 
 
 
@@ -41,7 +43,7 @@ export class SpotifyService {
 
     } catch (ex) {
 
-      console.log(ex);
+
       return false;
 
     }
@@ -50,9 +52,18 @@ export class SpotifyService {
 
 
   async getSpotifyUsers() {
-    const userInfo = await this.spotifyApi?.getMe();
-    this.user = SpotifyUserToUser(userInfo);
-    console.log(userInfo);
+    try {
+      // soluçao temporaria
+      const userInfo = await this.spotifyApi?.getMe();
+      this.user = SpotifyUserToUser(userInfo);
+
+      localStorage.setItem("user", JSON.stringify(this.user))
+
+      console.log(this.user);
+    } catch (ex) {
+      throw ex;
+    }
+
   }
 
 
@@ -81,5 +92,15 @@ export class SpotifyService {
 
     this.spotifyApi?.setAccessToken(token);
     localStorage.setItem('token', token);
+  }
+
+  async searchPlaylistUser(offset = 0, limit = 50): Promise<IPlaylist[] | any> {
+    let userInfo: any = localStorage.getItem("user");
+    userInfo = JSON.parse(userInfo);
+
+
+    const playlist = await this.spotifyApi?.getUserPlaylists(userInfo.id, { offset, limit });
+    return playlist?.items.map(SpotifyPlaylistToPlaylist);
+
   }
 }
