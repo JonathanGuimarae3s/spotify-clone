@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authenticatedGuard } from './guards/authenticated.guard';
+import { HomeComponent } from './pages/home/home.component';
 export const routes: Routes = [
 
     {
@@ -7,6 +8,8 @@ export const routes: Routes = [
         redirectTo: 'player',
         pathMatch: 'full'
     },
+
+
     {
         path: 'player',
         loadChildren: () => import('./pages/player/player.module').then(x => x.PlayerModule),

@@ -28,14 +28,18 @@
   <div class="menu-container flex">
     <span class="playlist-title"> PLAYLIST </span>
     <div class="playlist-scroll">
+      @for (playlist of playlists; track playlist) {
       <app-button-menu
-        [descriptionButton]="'Play 1'"
-        [selected]="menuSelected === 'Play1'"
-        (click)="clickButton('Play1')"
+        [descriptionButton]="playlist.name"
+        [selected]="menuSelected === playlist.id"
+        (click)="clickButton(playlist.id)"
       >
         <fa-icon [icon]="playlistIcon"></fa-icon>
       </app-button-menu>
+      }
     </div>
   </div>
 </div>
-<div class="info-user"></div>
+<div class="info-user">
+  <app-user-footer></app-user-footer>
+</div>

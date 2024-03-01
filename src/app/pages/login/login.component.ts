@@ -33,7 +33,7 @@ export class LoginComponent {
     if (!!token) {
       console.log(token)
       this.SpotifyService.setAcessToken(token);
-      this.router.navigate(['/player']);
+      this.router.navigate(['/player/home']);
 
     }
   }

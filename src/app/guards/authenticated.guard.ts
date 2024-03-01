@@ -1,9 +1,10 @@
 import { Router, CanActivateFn } from '@angular/router';
 import { SpotifyService } from '../model/service/spotifyServices/spotify.service';
+import { inject } from '@angular/core';
 
 export const authenticatedGuard: CanActivateFn = (route, state) => {
-  const router = new Router();
-  const spotifyService = new SpotifyService();
+  const router = inject(Router);
+  const spotifyService = inject(SpotifyService);
   const token = localStorage.getItem('token');
   if (!token) {
     notAuthenticated();
